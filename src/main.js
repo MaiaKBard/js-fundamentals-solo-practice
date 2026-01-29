@@ -85,7 +85,12 @@ console.log(reverseObject({ a: 1, b: 'c', d: 4 })); // -> { '1': 'a', '4': 'd', 
  * @returns {boolean} True if value is a number, else false.
  */
 export function isNumber(value) {
+  // Pair Programming
   // your code here
+  // if (typeof value === 'number') return true;
+  // return false;
+
+  return typeof value === 'number';
 }
 // console.log(isNumber(5)); // -> true
 // console.log(isNumber('hi')); // -> false
@@ -97,7 +102,9 @@ export function isNumber(value) {
  * @returns {boolean} True if value is a string primitive, else false.
  */
 export function isString(value) {
-  // your code here
+  // Pair Programming
+  return typeof value === 'string';
+
 }
 // console.log(isString('hi')); // -> true
 // console.log(isString(5)); // -> false
@@ -109,7 +116,8 @@ export function isString(value) {
  * @returns {boolean} True if value is an array, else false.
  */
 export function isArray(value) {
-  // your code here
+  // Pair Programming
+  return Array.isArray(value);
 }
 // console.log(isArray(5)); // -> false
 // console.log(isArray([1, 2, 3])); // -> true
@@ -122,11 +130,20 @@ export function isArray(value) {
  * @returns {boolean} True if the value is an object, otherwise false.
  */
 export function isObject(value) {
-  // your code here
+  // Pair Programming
+  return typeof value === 'object' || typeof value === 'function';
+
+  //check for objects {} only
+  // return Object.prototype.toString.call(value) === '[object Object]';
 }
 // console.log(isObject(5)); // -> false
 // console.log(isObject([1, 2, 3])); // -> true
 // console.log(isObject({})); // -> true
+// console.log(
+//   isObject(() => {
+//     console.log('Hello!');
+//   }),
+// );
 
 /**
  * Returns `true` if the argument is `null`.
@@ -135,7 +152,8 @@ export function isObject(value) {
  * @returns {boolean} True if value is null, else false.
  */
 export function isNull(value) {
-  // your code here
+  // Pair Programming
+  return value === null;
 }
 // console.log(isNull(null)); // -> true
 // console.log(isNull(5)); // -> false
@@ -148,12 +166,30 @@ export function isNull(value) {
  * @returns {Object} The cloned object.
  */
 export function clone(value) {
-  // your code here
+  // Pair Programming
+  return Array.isArray(value) ? [...value] : { ...value };
 }
-// const users = [{ 'user': 'barney' }, { 'user': 'fred' }];
+// const users = [{ user: 'barney' }, { user: 'fred' }];
 // const shallowClone = clone(users);
+// console.log(shallowClone);
 // console.log(shallowClone === users); // -> false
 // console.log(shallowClone[0] === users[0]); // -> true
+
+// shallowClone[0].user = 'wilma';
+// console.log('users', users);
+// console.log('shallowClone', shallowClone);
+
+// const obj = { a: [1, 2, 3], e: true, i: true };
+
+// const shallow = clone(obj);
+// console.log(shallow);
+
+// shallow.a[0] = 6;
+// console.log('obj', obj);
+// console.log('shallow', shallow);
+// When using spread to make a shallow copy, nested values (composites object | arrays) are linked to the original object which was cloned.
+// You can reassign the whole value and successfully make a diff
+// But you can't mutate the cloned composite without affecting the original
 
 /**
  * Returns the size of a collection.
@@ -164,7 +200,12 @@ export function clone(value) {
  * @returns {number} The size of the collection.
  */
 export function size(collection) {
-  // your code here
+  // Pair Programming
+  // Guard Clause
+  if (typeof collection !== 'object') return 'Enter an object or array';
+
+  if (Array.isArray(collection)) return collection.length;
+  else return Object.keys(collection).length;
 }
 // console.log(size([1, 2, 3])); // -> 3
 // console.log(size({ a: 1, b: 2 })); // -> 2
@@ -179,7 +220,11 @@ export function size(collection) {
  * @returns {number} The index of the matched value, else -1.
  */
 export function indexOf(array, value) {
-  // your code here
+  // Pair Programming
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === value) return i;
+  }
+  return -1;
 }
 // console.log(indexOf([11, 22, 33], 11)); // -> 0
 // console.log(indexOf([11, 22, 33], 5)); // -> -1
@@ -193,7 +238,9 @@ export function indexOf(array, value) {
  * @returns {Array} The slice of `array`.
  */
 export function drop(array, n) {
-  // your code here
+  // Pair Programming
+  // if (n === undefined) n = 1;
+  return array.slice(n);
 }
 // console.log(drop([1, 2, 3])); // -> [2, 3]
 // console.log(drop([1, 2, 3], 2)); // -> [3]
@@ -209,7 +256,12 @@ export function drop(array, n) {
  * @returns {Array} The slice of `array`.
  */
 export function dropRight(array, n) {
-  // your code here
+  // Pair Programming
+  if (n > array.length) return [];
+
+  // if (n <= 0) return array;
+
+  return array.slice(0, array.length - n);
 }
 // console.log(dropRight([1, 2, 3])); // -> [1, 2]
 // console.log(dropRight([1, 2, 3], 2)); // -> [1]
@@ -225,8 +277,10 @@ export function dropRight(array, n) {
  * @returns {Array} The slice of `array`.
  */
 export function take(array, n) {
-  // your code here
+  // Pair Programming
+  return array.slice(0, n);
 }
+// console.log('take');
 // console.log(take([1, 2, 3])); // -> [1]
 // console.log(take([1, 2, 3], 2)); // -> [1, 2]
 // console.log(take([1, 2, 3], 5)); // -> [1, 2, 3]
@@ -239,11 +293,27 @@ export function take(array, n) {
  * @param {Array} array2 - The values to exclude.
  * @returns {Array} The new array of filtered values.
  */
-export function difference(array1, array2) {
-  // your code here
-}
-// console.log(difference([0, 1, 2, 3, 4, 5], [3, 5])); // -> [0, 1, 2, 4]
+// export function difference(array1, array2) {
+// //Pair Programming
+// //create an output array
+//   const output = [];
 
+//   let unique = new Set(array1)
+ 
+//    //iterate through array1
+//   [...unique].forEach(function (element, i, array) {
+//     //if the element we are accessing is NOT found in array2 //push to output array
+//     if (!array2.includes(element)) {
+//       output.push(element);
+//       //push to a set
+//     }
+//   });
+ 
+//   //return output array
+//   return output;
+// }
+// console.log(difference([0, 1, 2, 3, 4, 5], [3, 5])); // -> [0, 1, 2, 4]
+// console.log(difference([4, 0, 1, 1, 2, 3, 4, 5, 3], [3, 5])); // -> [0, 1, 2, 4]
 /**
  * Iterates over elements of an array, invoking `callback` for each element.
  * The callback is passed the element, the current index, and the entire array.
@@ -253,13 +323,23 @@ export function difference(array1, array2) {
  * @param {Function} callback - The function invoked per iteration.
  * @returns {void} - This function does not return a value.
  */
+
+//Input: is an array and a callback (which is another function)
+//Output: No output
+
+// Array - so iterate over - for loop
+// Inside the loop apply the callback to the element, current idex, the entire array
+// the element will be array[i] the index will be i and the array will be array
 export function forEach(array, callback) {
-  // your code here
+  // Me
+  for (let i = 0; i < array.length; i++) {
+    callback(array[i], i, array)
+  }
 }
 // const callback = function(element, index, array) {
 //   console.log(element + ',' + index + ',' + array);
 // };
-// forEach(['a', 'b', 'c'], callback); // -> 'a,0,a,b,c' 'b,1,a,b,c' 'c,2,a,b,c'
+// console.log(forEach(['a', 'b', 'c'], callback)); // -> 'a,0,a,b,c' 'b,1,a,b,c' 'c,2,a,b,c'
 
 /**
  * Iterates over elements of an array in reverse, invoking `callback` for each element.
@@ -269,13 +349,51 @@ export function forEach(array, callback) {
  * @param {Function} callback - The function invoked per iteration.
  * @returns {void} - This function does not return a value.
  */
+
+//Isnt it the same but the loop decreses instead of increases?
+
+// Input: Array(we will want to loop through) and Callback(a function thatll run on each item)
 export function forEachRight(array, callback) {
-  // your code here
+  // Me
+  // const reversedArr = [...array].reverse() This line was uneeded 
+  // console.log(reversedArr)
+
+  //Array.length = 3 -> so i starts at 3-1 = 2(the last index)
+  //Loop continues until i >= 0
+  // i-- decreaases i by 1 each time
+  
+  //So the loop goes: i = 2, then 1, then 0 (backwards!)
+
+  //Inside the loop
+  //For each position, it calls your callback function with:
+  // array[i] - the current element
+  // i - the current index
+  // array - the whole original array
+
+  for (let i = array.length - 1; i >= 0; i--) { 
+    // console.log(reversedArr[i])
+    // console.log(array[i])
+    callback(array[i], i, array)
+  }
+  //Whats happening step by step
+    // First iteration (i = 2):
+  // array[2] is 'c'
+  // Logs: 'c,2,a,b,c'
+
+  // Second iteration (i = 1):
+
+  // array[1] is 'b'
+  // Logs: 'b,1,a,b,c'
+
+  // Third iteration (i = 0):
+
+  // array[0] is 'a'
+  // Logs: 'a,0,a,b,c'
 }
-// const callback = function(element, index, array) {
-//   console.log(element + ',' + index + ',' + array);
-// };
-// forEachRight(['a', 'b', 'c'], callback); // -> 'c,2,a,b,c' 'b,1,a,b,c' 'a,0,a,b,c'
+const callback = function(element, index, array) {
+  console.log(element + ',' + index + ',' + array);
+};
+console.log(forEachRight(['a', 'b', 'c'], callback)); // -> 'c,2,a,b,c' 'b,1,a,b,c' 'a,0,a,b,c'
 
 /**
  * Creates an array of values by running each element in `array` through `callback`.
