@@ -4,7 +4,17 @@
  * @param {number} value - The number to check.
  * @returns {boolean} True if negative or odd, else false.
  */
+
+// Input: Number
+//Output: Boolean
+//If/Else statement - If the num divded by 2 does not equal num is less than 0 output true
+// return false or else return false
 export function isNegativeOrOdd(value) {
+  // Me
+  if (value % 2 !== 0 || value < 0) return true
+
+  return false
+  // Pair Programming
   if (value % 2 !== 0 || value < 0) return true;
   return false;
   // your code here
@@ -21,7 +31,22 @@ export function isNegativeOrOdd(value) {
  * @param {number} count - Number of times to repeat the string.
  * @returns {string} The repeated string.
  */
+
+// Input: Strring and count(number)
+// Output: New string with previous string - Outputed count times
+
+//for loop - outputs string += to a new string varible
+// Return the new string varible
 export function repeat(string, count) {
+  // Me
+  let newString = '';
+
+  for (let i = 0; i < count; i++) {
+    newString += string
+  }
+
+  return newString
+  // Pair Programming
   let newStr = ''
   
   for(let i = 0; i < count; i++){
@@ -41,8 +66,38 @@ export function repeat(string, count) {
  * @param {string} string - The string to reverse.
  * @returns {string} The reversed string.
  */
+
+// Input: string
+// Output: string reversed
+
+// Does the .reverse method work in this case?
+// Im thinking create a varible assingning the string.reverse and then return the varible
+//  Ill look up .reverse() method -doesnt work string are imutable
+
+// I need to convert it to an array, then reverse that array, then create a new string
 export function reverseString(string) {
-  return [...string].reverse().join('')
+  const reversedStr = [...string].reverse().join('')
+  // console.log(reversedStr)
+  return reversedStr
+  // Pair Programming
+  return [...string].reverse().join('') //Same thing this just returns it diresctly making it alot cleaner
+
+  // Using split() method
+  return string.split('').reverse().join('')
+    // split('') breaks the string into an array of characters
+    //Same results as [...string], just a different syntax
+    // Slightly more traditional/common
+
+  // Using a for loop
+  let reversed = '' 
+  for (let i = string.length - 1; i >= 0; i--) {
+    reversed += string[i]
+  }
+  return reversed
+    //Builds the reversed string character by character
+    // More mannual but shows whats happening step-by-step
+
+  
 }
 
 // console.log(reverseString('hello')); // -> 'olleh'
@@ -56,8 +111,27 @@ export function reverseString(string) {
  * @param {Object} object - The object to reverse.
  * @returns {Object} A new object with keys and values swapped.
  */
+
+// Input: Object
+// Output: New Object - With keys as values and values as keys
+
+// Create a varible pointing to a empty object
+// Loop through for in loop 
+// assign the value to a varible
+// Put that vaule as the key in the new object = to the key as the value
 export function reverseObject(object) {
-  // your code here
+  // Me
+  let newObj = {}
+
+  for(let key in object) {
+    // console.log(object[key])
+    console.log(key)
+    let value = object[key]
+    newObj[value] = key
+  }
+  return newObj
+
+  // Pair Programming
   // let key = Object.keys(object);
   // let values = Object.values(object);
   // let output = {};
@@ -76,7 +150,7 @@ export function reverseObject(object) {
 
   return output
 }
-console.log(reverseObject({ a: 1, b: 'c', d: 4 })); // -> { '1': 'a', '4': 'd', 'c': 'b' }
+// console.log(reverseObject({ a: 1, b: 'c', d: 4 })); // -> { '1': 'a', '4': 'd', 'c': 'b' }
 
 /**
  * Returns `true` if the argument is classified as a number.
@@ -85,7 +159,7 @@ console.log(reverseObject({ a: 1, b: 'c', d: 4 })); // -> { '1': 'a', '4': 'd', 
  * @returns {boolean} True if value is a number, else false.
  */
 export function isNumber(value) {
-  // your code here
+  // Me
 }
 // console.log(isNumber(5)); // -> true
 // console.log(isNumber('hi')); // -> false
