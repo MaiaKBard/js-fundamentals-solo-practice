@@ -121,35 +121,35 @@ export function reverseString(string) {
 // assign the value to a varible
 // Put that vaule as the key in the new object = to the key as the value
 // export function reverseObject(object) {
-//   // Me
-//   let newObj = {}
+  // Me
+  // let newObj = {}
 
-//   for(let key in object) {
-//     // console.log(object[key])
-//     console.log(key)
-//     let value = object[key]
-//     newObj[value] = key
-//   }
-//   return newObj
+  // for(let key in object) {
+  //   // console.log(object[key])
+  //   console.log(key)
+  //   let value = object[key]
+  //   newObj[value] = key
+  // }
+  // return newObj
 
-//   // Pair Programming
-//   // let key = Object.keys(object);
-//   // let values = Object.values(object);
-//   // let output = {};
+  // Pair Programming
+  // let key = Object.keys(object);
+  // let values = Object.values(object);
+  // let output = {};
 
-//   // key.forEach((el, i, arr) => {
-//   //   output[values[i]] = key[i];
-//   // });
+  // key.forEach((el, i, arr) => {
+  //   output[values[i]] = key[i];
+  // });
 
-//   // return output;
+  // return output;
 
-//   const output = {}
+  // const output = {}
 
-//   for(let key in object){
-//     output[object[key]] = key
-//   }
+  // for(let key in object){
+  //   output[object[key]] = key
+  // }
 
-//   return output
+  // return output
 // }
 // console.log(reverseObject({ a: 1, b: 'c', d: 4 })); // -> { '1': 'a', '4': 'd', 'c': 'b' }
 
@@ -172,7 +172,7 @@ export function isNumber(value) {
   // if (typeof value === 'number') return true;
   // return false;
 
-  return typeof value === 'number';
+  return typeof value === 'number'; //Simpler - === is a boolean result so no need for a if statement
 }
 // console.log(isNumber(5)); // -> true
 // console.log(isNumber('hi')); // -> false
@@ -183,7 +183,15 @@ export function isNumber(value) {
  * @param {*} value - The value to check.
  * @returns {boolean} True if value is a string primitive, else false.
  */
+
+// input: string
+//output: boolean
+//typeof === string output true
 export function isString(value) {
+  // Me
+  return typeof value === 'string'
+
+
   // Pair Programming
   return typeof value === 'string';
 
@@ -197,7 +205,15 @@ export function isString(value) {
  * @param {*} value - The value to check.
  * @returns {boolean} True if value is an array, else false.
  */
+
+// input: array
+// boolean
+
+//if input === array output trure
+// Array.isArray() - what is this?
 export function isArray(value) {
+  //Me
+  return Array.isArray(value)
   // Pair Programming
   return Array.isArray(value);
 }
@@ -211,12 +227,64 @@ export function isArray(value) {
  * @param {*} value - The value to check.
  * @returns {boolean} True if the value is an object, otherwise false.
  */
+
+// input object
+// output boolean
+
+//typof === object
+// value !== null becaue typeof object has null?
+// Array.isArray(value) 
+// If passed it should output true 
+// else false
+
+// Oh I didnt understand what classifies as an object
+  // Objects, arrays, functions, dates, math, Regex, built in browser objects
+  // Im quessing they only want us to focus on object, array, and function
 export function isObject(value) {
+// The correct solution
+  return (typeof value === 'object' && value !==null) || typeof value === 'function'
+
+// typeof value === 'object' - catches objects and arrays
+// && value !== null - excludes null (fixes the quirk)
+// || typeof value === 'function' - also includes functions
+
+// The parentheses are for order of operations - itll check the code inside the parentheses first then move on
+
+//Me -- This is Wrong Maia needs to learn
+  if (typeof value === 'object' && value !== null && Array.isArray(value)) return true
+  return false
+
+// isObject(5) → ✗ false ✓ (correct!)
+// isObject([1, 2, 3]) → ✓ true ✓ (correct!)
+// isObject({}) → ✗ false ✗ (WRONG - should be true!)
+// isObject(() => {...}) → ✗ false ✗ (WRONG - should be true!)
+
+// Why it's wrong:
+// The && Array.isArray(value) part means it ONLY returns true for arrays. 
+// Plain objects {} and functions fail the Array.isArray() check.
+
   // Pair Programming
   return typeof value === 'object' || typeof value === 'function';
 
+// isObject(5) → ✗ false ✓ (correct!)
+// isObject([1, 2, 3]) → ✓ true ✓ (correct!)
+// isObject({}) → ✓ true ✓ (correct!)
+// isObject(() => {...}) → ✓ true ✓ (correct!)
+
+// But wait - there's a hidden bug:
+// javascriptisObject(null) → true  // WRONG! null shouldn't count as an object
+// This happens because typeof null === 'object' (JavaScript quirk).
+
   //check for objects {} only
-  // return Object.prototype.toString.call(value) === '[object Object]';
+  return Object.prototype.toString.call(value) === '[object Object]';
+
+// isObject(5) → ✗ false ✓ (correct!)
+// isObject([1, 2, 3]) → ✗ false ✗ (WRONG - should be true!)
+// isObject({}) → ✓ true ✓ (correct!)
+// isObject(() => {...}) → ✗ false ✗ (WRONG - should be true!)
+
+// Why it's wrong:
+// Too strict! Only accepts plain objects {}, not arrays or functions.
 }
 // console.log(isObject(5)); // -> false
 // console.log(isObject([1, 2, 3])); // -> true
@@ -233,9 +301,17 @@ export function isObject(value) {
  * @param {*} value - The value to check.
  * @returns {boolean} True if value is null, else false.
  */
+
+// input: null
+// output: boolean
+
+// typeof === null return true
 export function isNull(value) {
+  return value === null
+  // Doesnt need typeof for check  hehe
+
   // Pair Programming
-  return value === null;
+  // return value === null;
 }
 // console.log(isNull(null)); // -> true
 // console.log(isNull(5)); // -> false
@@ -472,10 +548,10 @@ export function forEachRight(array, callback) {
   // array[0] is 'a'
   // Logs: 'a,0,a,b,c'
 }
-const callback = function(element, index, array) {
-  console.log(element + ',' + index + ',' + array);
-};
-console.log(forEachRight(['a', 'b', 'c'], callback)); // -> 'c,2,a,b,c' 'b,1,a,b,c' 'a,0,a,b,c'
+// const callback = function(element, index, array) {
+//   console.log(element + ',' + index + ',' + array);
+// };
+// console.log(forEachRight(['a', 'b', 'c'], callback)); // -> 'c,2,a,b,c' 'b,1,a,b,c' 'a,0,a,b,c'
 
 /**
  * Creates an array of values by running each element in `array` through `callback`.
