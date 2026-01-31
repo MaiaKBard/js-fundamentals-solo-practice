@@ -76,6 +76,7 @@ export function repeat(string, count) {
 
 // I need to convert it to an array, then reverse that array, then create a new string
 export function reverseString(string) {
+  // Me
   const reversedStr = [...string].reverse().join('')
   // console.log(reversedStr)
   return reversedStr
@@ -119,37 +120,37 @@ export function reverseString(string) {
 // Loop through for in loop 
 // assign the value to a varible
 // Put that vaule as the key in the new object = to the key as the value
-export function reverseObject(object) {
-  // Me
-  let newObj = {}
+// export function reverseObject(object) {
+//   // Me
+//   let newObj = {}
 
-  for(let key in object) {
-    // console.log(object[key])
-    console.log(key)
-    let value = object[key]
-    newObj[value] = key
-  }
-  return newObj
+//   for(let key in object) {
+//     // console.log(object[key])
+//     console.log(key)
+//     let value = object[key]
+//     newObj[value] = key
+//   }
+//   return newObj
 
-  // Pair Programming
-  // let key = Object.keys(object);
-  // let values = Object.values(object);
-  // let output = {};
+//   // Pair Programming
+//   // let key = Object.keys(object);
+//   // let values = Object.values(object);
+//   // let output = {};
 
-  // key.forEach((el, i, arr) => {
-  //   output[values[i]] = key[i];
-  // });
+//   // key.forEach((el, i, arr) => {
+//   //   output[values[i]] = key[i];
+//   // });
 
-  // return output;
+//   // return output;
 
-  const output = {}
+//   const output = {}
 
-  for(let key in object){
-    output[object[key]] = key
-  }
+//   for(let key in object){
+//     output[object[key]] = key
+//   }
 
-  return output
-}
+//   return output
+// }
 // console.log(reverseObject({ a: 1, b: 'c', d: 4 })); // -> { '1': 'a', '4': 'd', 'c': 'b' }
 
 /**
@@ -158,8 +159,14 @@ export function reverseObject(object) {
  * @param {*} value - The value to check.
  * @returns {boolean} True if value is a number, else false.
  */
+// input: number
+// output: boolean
+
+// If statement - if typeof value is === 'number' output true else false
 export function isNumber(value) {
   // Me
+  if( typeof value === 'number') return true
+  return false
 }
 // console.log(isNumber(5)); // -> true
 // console.log(isNumber('hi')); // -> false
@@ -171,7 +178,7 @@ export function isNumber(value) {
  * @returns {boolean} True if value is a string primitive, else false.
  */
 export function isString(value) {
-  // your code here
+  
 }
 // console.log(isString('hi')); // -> true
 // console.log(isString(5)); // -> false
