@@ -565,7 +565,19 @@ export function forEachRight(array, callback) {
  * @returns {Array} The new mapped array.
  */
 export function map(array, callback) {
-  // your code here
+  // Me
+  
+  //Pair Programming
+    const results = [];
+    forEach(array, function(element, index, array) {
+      results.push(callback(element, index, array));
+    });
+    return results;
+  }
+  console.log(map([1, 2, 3], (element, index, array) => {
+    return element * 3;
+  })); // -> [3, 6, 9]
+  
 }
 // console.log(map([1, 2, 3], (element, index, array) => {
 //   return element * 3;
